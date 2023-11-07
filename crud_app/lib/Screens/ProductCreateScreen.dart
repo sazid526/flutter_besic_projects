@@ -1,5 +1,8 @@
+import 'package:crud_app/Style/Style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+
 
 class ProductCreateScreen extends StatefulWidget {
   const ProductCreateScreen({Key? key}) : super(key: key);
@@ -17,36 +20,76 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
       ),
       body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                TextFormField(
-                  onChanged: (value){
+          ScreenBackground(context),
+          Container(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: MyAppInputDecoration("Product Name"),
+                    onChanged: (value){
 
-                  },
-                ),
-                TextFormField(
-                  onChanged: (value){
+                    },
+                  ),
+                  SizedBox(height: 20,),
+                  TextFormField(
+                    decoration: MyAppInputDecoration("Product Code"),
+                    onChanged: (value){
 
-                  },
-                ),
-                TextFormField(
-                  onChanged: (value){
+                    },
+                  ),
+                  SizedBox(height: 20,),
+                  TextFormField(
+                    decoration: MyAppInputDecoration("Product Image"),
+                    onChanged: (value){
 
-                  },
-                ),
-                TextFormField(
-                  onChanged: (value){
+                    },
+                  ),
+                  SizedBox(height: 20,),
+                  TextFormField(
+                    decoration: MyAppInputDecoration("Unit Price"),
+                    onChanged: (value){
 
-                  },
-                ),
-                TextFormField(
-                  onChanged: (value){
+                    },
+                  ),
+                  SizedBox(height: 20,),
+                  TextFormField(
+                    decoration: MyAppInputDecoration("Total Price"),
+                    onChanged: (value){
 
-                  },
-                )
-              ],
+                    },
+                  ),
+                  SizedBox(height: 20,),
+
+                  AppDropDownStyle(
+                      DropdownButton(
+                        value: "",
+                        items: [
+                          DropdownMenuItem(child: Text("Select Qty"),value: "",),
+                          DropdownMenuItem(child: Text("1 pcs"),value: "1 pcs",),
+                          DropdownMenuItem(child: Text("2 pcs"),value: "2 pcs",),
+                          DropdownMenuItem(child: Text("3 pcs"),value: "3 pcs",),
+                          DropdownMenuItem(child: Text("4 pcs"),value: "4 pcs",),
+
+                        ],
+                        onChanged: (value){
+
+                        },
+                        isExpanded: true,
+                        underline: Container(),
+                      )
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    child: ElevatedButton(onPressed: (){
+                      
+                    }, child: Text("Submit")),
+                  )
+
+
+                ],
+              ),
             ),
           )
         ],
@@ -54,3 +97,4 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
     );
   }
 }
+
