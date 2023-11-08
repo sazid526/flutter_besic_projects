@@ -9,6 +9,31 @@ class TaskManagerApp extends StatelessWidget {
     return MaterialApp(
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+            fillColor: Colors.white,
+            filled: true,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide.none
+            )
+        ),
+        textTheme: TextTheme(
+          titleLarge: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w600
+          ),
+        ),
+        primaryColor: Colors.green,
+        primarySwatch: Colors.green,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(vertical: 10),
+          )
+        )
+      ),
     );
   }
 }
