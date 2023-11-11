@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 const colorRed = Color.fromRGBO(231, 28, 36, 1);
@@ -18,12 +19,39 @@ SvgPicture ScreenBackground(context){
   );
 }
 
+void ErrorToast(msg){
+  Fluttertoast.showToast(
+      msg: msg,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: colorRed,
+    textColor: colorWhite,
+    fontSize: 16
+  );
+}
+
+void SuccessToast(msg){
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: colorGreen,
+      textColor: colorWhite,
+      fontSize: 16
+  );
+}
+
 DecoratedBox AppDropDownStyle(child){
   return DecoratedBox(decoration: BoxDecoration(
     color: colorWhite,border: Border.all(color: colorWhite,width: 1),
     borderRadius: BorderRadius.circular(4)
   ),
-  child: child);
+  child: Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    child: child,),
+  );
 }
 
 
@@ -44,5 +72,32 @@ InputDecoration MyAppInputDecoration(label){
     ),
     border: OutlineInputBorder(),
     labelText: label
+  );
+}
+
+
+ButtonStyle AppButtonStyle(){
+  return ElevatedButton.styleFrom(
+    elevation: 1,
+    padding: EdgeInsets.all(0),
+    backgroundColor: Colors.transparent,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))
+  );
+}
+
+Ink SuccessButtonChild(ButtonText){
+  return Ink(
+    decoration: BoxDecoration(
+      color: colorGreen,
+      borderRadius: BorderRadius.circular(6)
+    ),
+    child: Container(
+      height: 45,
+      alignment: Alignment.center,
+      child: Text(ButtonText,style: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 15
+      ),),
+    ),
   );
 }
