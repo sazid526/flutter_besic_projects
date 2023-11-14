@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     hintText: "Email",
                   ),
                   validator: (String? value) {
-                    if (value?.trim().isEmpty ?? true) {
+                    if (value!.isEmpty ||!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value!)) {
                       return "Enter your valied email address";
                     }
                     return null;
