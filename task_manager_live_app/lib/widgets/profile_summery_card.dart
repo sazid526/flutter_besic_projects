@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager_live_app/UI/Screens/edit_profile_screen.dart';
+import 'package:task_manager_live_app/UI/Screens/login_screen.dart';
+import 'package:task_manager_live_app/UI/controller/authentication_controller.dart';
 
-class ProfileSummeryCard extends StatelessWidget {
+class ProfileSummeryCard extends StatefulWidget {
   const ProfileSummeryCard({
     super.key, this.enableOnTap = true,
   });
@@ -9,26 +11,41 @@ class ProfileSummeryCard extends StatelessWidget {
   final bool enableOnTap;
 
   @override
+  State<ProfileSummeryCard> createState() => _ProfileSummeryCardState();
+}
+
+class _ProfileSummeryCardState extends State<ProfileSummeryCard> {
+  @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: (){
-        if(enableOnTap){
+        if(widget.enableOnTap){
           Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
         }
       },
-      leading: CircleAvatar(
+      leading: const CircleAvatar(
         child: Icon(Icons.person),
       ),
-      title: Text("Sazid Arefin",style: TextStyle(
+      title:  Text(fullName,style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w600
       ),),
-      subtitle: Text("sazidarefin@gmail.com",style: TextStyle(
+      subtitle:  Text(AuthenticationController.user?.email ?? "",style: TextStyle(
         color: Colors.white,
 
       ),),
-      trailing: enableOnTap?Icon(Icons.arrow_circle_right_outlined,color: Colors.white,):null,
+      trailing: IconButton(onPressed: () async{
+        await AuthenticationController.clearAuthenticationData();
+        if(mounted){
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
+        }
+
+      }, icon: const Icon(Icons.logout)),
       tileColor: Colors.green,
     );
+  }
+
+  String get fullName{
+    return "${AuthenticationController.user?.firstName ?? ""} ${AuthenticationController.user?.lastName}";
   }
 }

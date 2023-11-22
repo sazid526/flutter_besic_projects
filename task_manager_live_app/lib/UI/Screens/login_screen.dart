@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_live_app/UI/Screens/forgot_password_screen.dart';
 import 'package:task_manager_live_app/UI/Screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_live_app/UI/Screens/sign_up_screen.dart';
+import 'package:task_manager_live_app/UI/controller/authentication_controller.dart';
+import 'package:task_manager_live_app/data.network_caller/models/user_model.dart';
 import 'package:task_manager_live_app/data.network_caller/network_caller.dart';
 import 'package:task_manager_live_app/data.network_caller/network_response.dart';
 import 'package:task_manager_live_app/data.network_caller/utility/urls.dart';
@@ -159,8 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {});
     }
     if (response.isSuccess) {
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      await sharedPreferences.setString("token",response.jsonResponse["token"]);
+      await AuthenticationController.saveUserInformation(
+          response.jsonResponse["token"], UserModel.fromJson(response.jsonResponse["data"]));
       if (mounted) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => MainBottomNavScreen()));
