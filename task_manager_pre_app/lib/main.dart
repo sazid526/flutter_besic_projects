@@ -5,6 +5,7 @@ import 'package:task_manager_pre_app/Screen/onboarding/pinVerificationScreen.dar
 import 'package:task_manager_pre_app/Screen/onboarding/registrationScreen.dart';
 import 'package:task_manager_pre_app/Screen/onboarding/setPasswordScreen.dart';
 import 'package:task_manager_pre_app/Screen/onboarding/splashScreen.dart';
+import 'package:task_manager_pre_app/Screen/task/newTaskListScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Task Manager",
-      initialRoute: '/pinVerification',
+      initialRoute: '/login',
       routes: {
         '/':(context)=> SplashScreen(),
         '/login':(context)=> LoginScreen(),
@@ -25,6 +26,8 @@ class MyApp extends StatelessWidget {
         '/emailVerification':(context)=> EmailVerificationScreen(),
         '/pinVerification':(context)=> PinVerificationScreen(),
         '/setPassword':(context)=> SetPasswordScreen(),
+        '/newTaskList':(context)=> NewTaskListScreen(),
+
       },
     );
   }
