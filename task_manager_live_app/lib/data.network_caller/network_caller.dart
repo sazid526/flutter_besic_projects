@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:task_manager_live_app/UI/Screens/login_screen.dart';
 import 'package:task_manager_live_app/UI/controller/authentication_controller.dart';
+import 'package:task_manager_live_app/app.dart';
 import 'package:task_manager_live_app/data.network_caller/network_response.dart';
 
 class NetworkCaller {
@@ -31,6 +34,10 @@ class NetworkCaller {
     } catch (e) {
       return NetworkResponse(isSuccess:false,errorMassage: e.toString());
     }
+  }
+
+  void backToLogin(){
+    Navigator.pushAndRemoveUntil(TaskManagerApp.navigationKey.currentContext!, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
   }
 }
 
