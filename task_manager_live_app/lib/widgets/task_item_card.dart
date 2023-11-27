@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_live_app/data.network_caller/models/task.dart';
+import 'package:task_manager_live_app/widgets/task_item_card.dart';
 
 class TaskItemCard extends StatelessWidget {
   const TaskItemCard({
-    super.key,
+    super.key, required this.task,
   });
+
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +19,18 @@ class TaskItemCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("First Title",style: TextStyle(
+              Text(task.title ?? " ",style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600
               )),
-              Text("This is Description"),
-              Text("Time 12.2.2023"),
+              Text(task.description ?? " "),
+              Text("Time: ${task.createdDate}"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Chip(
                     label: Text(
-                      "New",
+                      task.status ?? "New",
                       style: TextStyle(color: Colors.white),
                     ),
                     backgroundColor: Colors.blue,

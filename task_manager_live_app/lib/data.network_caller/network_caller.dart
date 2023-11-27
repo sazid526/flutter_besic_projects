@@ -8,7 +8,7 @@ import 'package:task_manager_live_app/app.dart';
 import 'package:task_manager_live_app/data.network_caller/network_response.dart';
 
 class NetworkCaller {
-  Future postRequest(String url, {Map<String, dynamic>? body}) async {
+  Future postRequest(String url, {Map<String, dynamic>? body,bool? isLogin = false}) async {
     log(url);
     log(body.toString());
     try {
@@ -25,7 +25,16 @@ class NetworkCaller {
             isSuccess: true,
             jsonResponse: jsonDecode(response.body),
             statusCode: 200);
-      } else {
+      }else if(response.statusCode==401){
+        if(isLogin == false){
+          backToLogin();
+        }
+        return NetworkResponse(
+            isSuccess: false,
+            jsonResponse: jsonDecode(response.body),
+            statusCode: response.statusCode);
+      }
+      else {
         return NetworkResponse(
             isSuccess: false,
             jsonResponse: jsonDecode(response.body),
@@ -36,7 +45,42 @@ class NetworkCaller {
     }
   }
 
-  void backToLogin(){
+  Future getRequest(String url) async {
+    log(url);
+    try {
+      final Response response = await get(Uri.parse(url),
+          headers: {
+            "Content-type": "Application/json",
+            "token" : AuthenticationController.token.toString()
+          });
+      log(response.statusCode.toString());
+      log(response.body.toString());
+      if (response.statusCode == 200) {
+        return NetworkResponse(
+            isSuccess: true,
+            jsonResponse: jsonDecode(response.body),
+            statusCode: 200);
+      }else if(response.statusCode==401){
+          backToLogin();
+
+        return NetworkResponse(
+            isSuccess: false,
+            jsonResponse: jsonDecode(response.body),
+            statusCode: response.statusCode);
+      }
+      else {
+        return NetworkResponse(
+            isSuccess: false,
+            jsonResponse: jsonDecode(response.body),
+            statusCode: response.statusCode);
+      }
+    } catch (e) {
+      return NetworkResponse(isSuccess:false,errorMassage: e.toString());
+    }
+  }
+
+  void backToLogin() async{
+    await AuthenticationController.clearAuthenticationData();
     Navigator.pushAndRemoveUntil(TaskManagerApp.navigationKey.currentContext!, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
   }
 }
